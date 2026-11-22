@@ -65,7 +65,7 @@ pages=['◈  Mission Control','▣  Case Workspace','⬡  File Intelligence','�
 st.sidebar.markdown('### ◈ THREATNOVA')
 st.sidebar.caption('CYBERSECURITY INTELLIGENCE  //  DEFENSIVE')
 st.sidebar.divider()
-page=st.sidebar.radio('WORKSPACES',pages,label_visibility='visible')
+page=st.sidebar.radio('WORKSPACES',pages,label_visibility='visible',key='active_workspace')
 st.sidebar.divider()
 st.sidebar.markdown('**SYSTEM STATUS**')
 st.sidebar.caption('● STATIC ENGINE READY')
@@ -190,15 +190,18 @@ if page==pages[0]:
     with c1:
         st.markdown('<div class="feature-card"><div class="feature-icon">⬡</div><div class="feature-title">File Intelligence</div><div class="feature-copy">Inspect file signatures, hashes, byte patterns, and suspicious indicators without executing uploaded samples.</div><div class="feature-foot">01 / STATIC FILE ANALYSIS</div></div>',unsafe_allow_html=True)
         if st.button('Explore file analysis →',key='home_file',use_container_width=True):
-            st.info('Select “File Intelligence” in the sidebar to begin.')
+            st.session_state.active_workspace=pages[2]
+            st.rerun()
     with c2:
         st.markdown('<div class="feature-card"><div class="feature-icon">◎</div><div class="feature-title">URL Intelligence</div><div class="feature-copy">Review URL structure, identify lexical risk signals, and optionally collect DNS resolution evidence.</div><div class="feature-foot">02 / URL RISK TRIAGE</div></div>',unsafe_allow_html=True)
         if st.button('Explore URL analysis →',key='home_url',use_container_width=True):
-            st.info('Select “URL Intelligence” in the sidebar to begin.')
+            st.session_state.active_workspace=pages[3]
+            st.rerun()
     with c3:
         st.markdown('<div class="feature-card"><div class="feature-icon">◉</div><div class="feature-title">Network Intelligence</div><div class="feature-copy">Check selected TCP ports on private or loopback hosts you are authorized to assess.</div><div class="feature-foot">03 / AUTHORIZED NETWORK CHECKS</div></div>',unsafe_allow_html=True)
         if st.button('Explore network analysis →',key='home_network',use_container_width=True):
-            st.info('Select “Network Intelligence” in the sidebar to begin.')
+            st.session_state.active_workspace=pages[4]
+            st.rerun()
     label('How ThreatNova works')
     st.markdown('<div class="steps"><span><b>01</b> Create a case</span><span><b>02</b> Collect evidence</span><span><b>03</b> Analyze signals</span><span><b>04</b> Document findings</span><span><b>05</b> Export reports</span></div>',unsafe_allow_html=True)
     if case and case.evidence:
