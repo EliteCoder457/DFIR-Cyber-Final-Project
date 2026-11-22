@@ -18,8 +18,8 @@ st.markdown("""<style>
 :root{--bg:#03070c;--panel:rgba(8,18,27,.82);--panel2:rgba(11,24,35,.72);--line:rgba(103,238,224,.16);--line2:rgba(103,238,224,.30);--cyan:#67eee0;--lime:#b8ff78;--text:#ecfbff;--muted:#87a5b3;--danger:#ff5d78}
 html,body,[class*="css"]{font-family:'Space Grotesk',sans-serif}
 .stApp{background:#03070c;color:var(--text);overflow-x:hidden}
-.stApp:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(79,224,210,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(79,224,210,.045) 1px,transparent 1px),radial-gradient(circle at 72% 18%,rgba(0,231,210,.12),transparent 28%),radial-gradient(circle at 18% 82%,rgba(67,117,255,.09),transparent 26%);background-size:42px 42px,42px 42px,100% 100%,100% 100%;animation:gridDrift 18s linear infinite}
-.stApp:after{content:'';position:fixed;left:0;right:0;top:-20%;height:18%;pointer-events:none;z-index:0;background:linear-gradient(180deg,transparent,rgba(103,238,224,.055),rgba(103,238,224,.12),transparent);filter:blur(1px);animation:scanline 8s linear infinite}
+.stApp:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(79,224,210,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(79,224,210,.13) 1px,transparent 1px),radial-gradient(circle at 72% 18%,rgba(0,231,210,.22),transparent 28%),radial-gradient(circle at 18% 82%,rgba(67,117,255,.16),transparent 26%);background-size:42px 42px,42px 42px,100% 100%,100% 100%;animation:gridDrift 12s linear infinite}
+.stApp:after{content:'';position:fixed;left:0;right:0;top:-20%;height:18%;pointer-events:none;z-index:0;background:linear-gradient(180deg,transparent,rgba(103,238,224,.13),rgba(103,238,224,.27),transparent);filter:blur(1px);animation:scanline 6s linear infinite}
 @keyframes gridDrift{0%{background-position:0 0,0 0,0 0,0 0}100%{background-position:42px 84px,42px 84px,0 0,0 0}}
 @keyframes scanline{0%{transform:translateY(-30vh)}100%{transform:translateY(150vh)}}
 @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(103,238,224,.35)}50%{box-shadow:0 0 0 6px rgba(103,238,224,0)}}
@@ -63,8 +63,9 @@ hr{border-color:rgba(103,238,224,.10)!important}
 
 /* Light palette, activated by the theme marker; dark mode keeps the original design. */
 .stApp:has(#tn-light-marker){--bg:#f4f8fc;--panel:#ffffff;--panel2:#edf5fa;--line:rgba(21,106,133,.19);--line2:rgba(21,106,133,.36);--cyan:#087e91;--lime:#258c62;--text:#172c3c;--muted:#526d7c;background:#f4f8fc!important;color:#172c3c!important}
-.stApp:has(#tn-light-marker):before{opacity:.28}
-.stApp:has(#tn-light-marker):after{display:none}
+/* Dedicated animated grid and glowing scan beam for the light palette. */
+.stApp:has(#tn-light-marker):before{opacity:1;background-image:linear-gradient(rgba(5,115,150,.17) 1px,transparent 1px),linear-gradient(90deg,rgba(5,115,150,.17) 1px,transparent 1px),radial-gradient(circle at 75% 22%,rgba(0,179,190,.24),transparent 32%),radial-gradient(circle at 18% 82%,rgba(42,114,221,.17),transparent 30%);background-size:42px 42px,42px 42px,100% 100%,100% 100%;animation:gridDrift 12s linear infinite}
+ .stApp:has(#tn-light-marker):after{display:block;background:linear-gradient(180deg,transparent,rgba(7,142,174,.12),rgba(0,143,178,.28),rgba(7,142,174,.12),transparent);animation:scanline 6s linear infinite}
 .stApp:has(#tn-light-marker) header[data-testid='stHeader']{background:rgba(248,252,255,.92);border-color:#d7e5ed}
 .stApp:has(#tn-light-marker) section[data-testid='stSidebar']{background:#f9fcff;border-color:#d7e5ed}
 .stApp:has(#tn-light-marker) section[data-testid='stSidebar'] *{color:#234457}
@@ -95,6 +96,8 @@ hr{border-color:rgba(103,238,224,.10)!important}
 .stApp:has(#tn-light-marker) .finding .severity,.stApp:has(#tn-light-marker) .small-note{color:#567485}
 .stApp:has(#tn-light-marker) p,.stApp:has(#tn-light-marker) label,.stApp:has(#tn-light-marker) [data-testid='stMarkdownContainer']{color:inherit}
 
+/* Keep motion accessible for users who request reduced animation. */
+@media(prefers-reduced-motion:reduce){.stApp:has(#tn-light-marker):before,.stApp:has(#tn-light-marker):after{animation:none!important}}
 </style>""",unsafe_allow_html=True)
 for key in ('case','last_file_analysis','last_url_analysis','last_network_analysis','report_bytes'):
     if key not in st.session_state: st.session_state[key]=None
