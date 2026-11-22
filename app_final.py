@@ -10,6 +10,9 @@ from result_collector import InvestigationCase
 from report_generator import generate_report
 
 st.set_page_config(page_title='ThreatNova | Cybersecurity Intelligence',page_icon='◈',layout='wide',initial_sidebar_state='expanded')
+if 'theme_mode' not in st.session_state:
+    st.session_state.theme_mode = 'Dark'
+st.markdown('<span id="tn-light-marker"></span>' if st.session_state.theme_mode == 'Light' else '<span id="tn-dark-marker"></span>', unsafe_allow_html=True)
 st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 :root{--bg:#03070c;--panel:rgba(8,18,27,.82);--panel2:rgba(11,24,35,.72);--line:rgba(103,238,224,.16);--line2:rgba(103,238,224,.30);--cyan:#67eee0;--lime:#b8ff78;--text:#ecfbff;--muted:#87a5b3;--danger:#ff5d78}
@@ -57,6 +60,41 @@ hr{border-color:rgba(103,238,224,.10)!important}
 .home-hero{position:relative;overflow:hidden;border:1px solid rgba(103,238,224,.25);border-radius:22px;padding:48px 46px;margin-bottom:28px;background:radial-gradient(ellipse at 85% 40%,rgba(31,152,168,.20),transparent 43%),linear-gradient(115deg,#102432 0%,#08121d 62%,#07131d 100%);box-shadow:0 24px 80px rgba(0,0,0,.22)}
 .home-glow{position:absolute;right:-110px;top:-145px;width:440px;height:440px;border:1px solid rgba(103,238,224,.12);border-radius:50%;box-shadow:0 0 0 50px rgba(103,238,224,.025),0 0 0 105px rgba(103,238,224,.018);pointer-events:none}
 .home-content{position:relative;z-index:1}.home-kicker{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.17em;color:#86e9e2}.home-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#b8ff78;box-shadow:0 0 12px rgba(184,255,120,.7);margin-right:8px}.home-headline{font-size:clamp(38px,5vw,67px);font-weight:700;letter-spacing:-.065em;line-height:1.09;margin:22px 0;color:#f4feff}.home-headline span{background:linear-gradient(90deg,#67eee0,#b8ff78);background-clip:text;-webkit-background-clip:text;color:transparent}.home-description{max-width:690px;font-size:16px;line-height:1.8;color:#b0c7d2}.home-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}.home-tags span{font:11px 'IBM Plex Mono',monospace;padding:9px 12px;border:1px solid rgba(103,238,224,.20);border-radius:30px;background:rgba(103,238,224,.055);color:#c3eae8}.feature-card{height:220px;background:linear-gradient(145deg,rgba(13,33,44,.94),rgba(7,18,28,.94));border:1px solid rgba(103,238,224,.17);border-radius:16px;padding:22px;margin-bottom:10px;display:flex;flex-direction:column}.feature-icon{font-size:27px;color:#67eee0}.feature-title{font-weight:700;font-size:19px;color:#f0fcff;margin:12px 0 8px}.feature-copy{font-size:13px;line-height:1.6;color:#a2bdca;flex:1}.feature-foot{font:10px 'IBM Plex Mono',monospace;letter-spacing:.10em;color:#76dfd7;margin-top:12px}.steps{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 22px}.steps span{flex:1;min-width:155px;border:1px solid rgba(103,238,224,.16);background:rgba(8,23,33,.8);border-radius:10px;padding:15px 12px;font-size:12px;color:#c4dce5}.steps b{color:#67eee0;font-family:'IBM Plex Mono',monospace;margin-right:8px}@media(max-width:900px){.home-hero{padding:32px 23px}.home-description{font-size:14px}.feature-card{height:auto;min-height:205px}}
+
+/* Light palette, activated by the theme marker; dark mode keeps the original design. */
+.stApp:has(#tn-light-marker){--bg:#f4f8fc;--panel:#ffffff;--panel2:#edf5fa;--line:rgba(21,106,133,.19);--line2:rgba(21,106,133,.36);--cyan:#087e91;--lime:#258c62;--text:#172c3c;--muted:#526d7c;background:#f4f8fc!important;color:#172c3c!important}
+.stApp:has(#tn-light-marker):before{opacity:.28}
+.stApp:has(#tn-light-marker):after{display:none}
+.stApp:has(#tn-light-marker) header[data-testid='stHeader']{background:rgba(248,252,255,.92);border-color:#d7e5ed}
+.stApp:has(#tn-light-marker) section[data-testid='stSidebar']{background:#f9fcff;border-color:#d7e5ed}
+.stApp:has(#tn-light-marker) section[data-testid='stSidebar'] *{color:#234457}
+.stApp:has(#tn-light-marker) section[data-testid='stSidebar'] .stRadio label:hover{background:#e9f5f8}
+.stApp:has(#tn-light-marker) h1,.stApp:has(#tn-light-marker) h2,.stApp:has(#tn-light-marker) h3{color:#142e40!important}
+.stApp:has(#tn-light-marker) [data-testid='stMetric']{background:#fff;border-color:#d7e6ed;box-shadow:0 5px 20px rgba(20,58,77,.045)}
+.stApp:has(#tn-light-marker) [data-testid='stMetricLabel']{color:#557182!important}
+.stApp:has(#tn-light-marker) [data-testid='stMetricValue']{color:#16374b!important}
+.stApp:has(#tn-light-marker) [data-testid='stExpander'],.stApp:has(#tn-light-marker) [data-testid='stForm'],.stApp:has(#tn-light-marker) [data-testid='stDataFrame']{background:#fff;border-color:#d8e6ee}
+.stApp:has(#tn-light-marker) [data-testid='stAlert']{background:#e8f2fb;color:#1d486b;border-color:#cbdff1!important}
+.stApp:has(#tn-light-marker) [data-testid='stAlert'] *{color:#1d486b}
+.stApp:has(#tn-light-marker) .stButton button,.stApp:has(#tn-light-marker) .stDownloadButton button{background:#fff;color:#16465c;border-color:#c6dce5}
+.stApp:has(#tn-light-marker) .stButton button[kind='primary'],.stApp:has(#tn-light-marker) [data-testid='stFormSubmitButton'] button{background:linear-gradient(95deg,#0d96a5,#36b687);color:white}
+.stApp:has(#tn-light-marker) .stTextInput input,.stApp:has(#tn-light-marker) .stTextArea textarea{background:#fff!important;color:#17394b!important;border-color:#c5dce6!important}
+.stApp:has(#tn-light-marker) .stTabs [data-baseweb='tab-list']{background:#e9f2f8;border-color:#d2e3ec}
+.stApp:has(#tn-light-marker) .stTabs [data-baseweb='tab']{color:#476477}
+.stApp:has(#tn-light-marker) .stTabs [aria-selected='true']{background:#d1eef0!important;color:#07556b!important}
+.stApp:has(#tn-light-marker) .hero,.stApp:has(#tn-light-marker) .home-hero{background:linear-gradient(115deg,#fff,#eaf6fa);border-color:#cce2e9;box-shadow:0 12px 40px rgba(18,69,88,.06)}
+.stApp:has(#tn-light-marker) .hero-title,.stApp:has(#tn-light-marker) .home-headline,.stApp:has(#tn-light-marker) .feature-title{color:#143346}
+.stApp:has(#tn-light-marker) .home-headline span{background:linear-gradient(90deg,#087e91,#23895f);background-clip:text;-webkit-background-clip:text;color:transparent}
+.stApp:has(#tn-light-marker) .hero-sub,.stApp:has(#tn-light-marker) .home-description,.stApp:has(#tn-light-marker) .feature-copy{color:#4c687a}
+.stApp:has(#tn-light-marker) .home-kicker,.stApp:has(#tn-light-marker) .eyebrow,.stApp:has(#tn-light-marker) .section-label,.stApp:has(#tn-light-marker) .feature-foot,.stApp:has(#tn-light-marker) .feature-icon{color:#087e91}
+.stApp:has(#tn-light-marker) .home-tags span,.stApp:has(#tn-light-marker) .pill{background:#e8f6f5;color:#0a6470;border-color:#c5e5e2}
+.stApp:has(#tn-light-marker) .feature-card,.stApp:has(#tn-light-marker) .steps span{background:#fff;border-color:#d1e3eb;color:#28495c}
+.stApp:has(#tn-light-marker) .steps b{color:#087e91}
+.stApp:has(#tn-light-marker) .finding{background:#fff;color:#17394b}
+.stApp:has(#tn-light-marker) .finding .message{color:#17394b}
+.stApp:has(#tn-light-marker) .finding .severity,.stApp:has(#tn-light-marker) .small-note{color:#567485}
+.stApp:has(#tn-light-marker) p,.stApp:has(#tn-light-marker) label,.stApp:has(#tn-light-marker) [data-testid='stMarkdownContainer']{color:inherit}
+
 </style>""",unsafe_allow_html=True)
 for key in ('case','last_file_analysis','last_url_analysis','last_network_analysis','report_bytes'):
     if key not in st.session_state: st.session_state[key]=None
@@ -67,6 +105,8 @@ def navigate_to(workspace):
 pages=['◈  Mission Control','▣  Case Workspace','⬡  File Intelligence','◎  URL Intelligence','◉  Network Intelligence','▤  Evidence Vault','▧  Report Studio']
 st.sidebar.markdown('### ◈ THREATNOVA')
 st.sidebar.caption('CYBERSECURITY INTELLIGENCE  //  DEFENSIVE')
+st.sidebar.button('⌂  Home / Mission Control', key='go_home', use_container_width=True, on_click=navigate_to, args=(pages[0],))
+st.sidebar.radio('APPEARANCE', ['Dark', 'Light'], key='theme_mode', horizontal=True)
 st.sidebar.divider()
 page=st.sidebar.radio('WORKSPACES',pages,label_visibility='visible',key='active_workspace')
 st.sidebar.divider()
